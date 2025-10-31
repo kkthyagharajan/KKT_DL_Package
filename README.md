@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🧠 KKT_DL_Package
 
 **KKT_DL_Package** is a modular Deep Learning utility library designed to simplify and accelerate model development using **Keras** and **TensorFlow**.  
@@ -66,3 +67,7 @@ I gratefully acknowledge the developers and contributors of these projects.
 
 ## 👤 Author
 **Thyagharajan K K**
+=======
+# KKT_DL_Package
+KKT_DL_Package is a modular Deep Learning utility library designed to simplify and accelerate the development of Keras and TensorFlow–based models. It integrates reusable components for transfer learning, dataset handling, callback management, and result visualization — making it ideal for rapid prototyping and research projects.
+>>>>>>> 2d5c7f28dd57af6a449e594b1377a38f079dd8e2
