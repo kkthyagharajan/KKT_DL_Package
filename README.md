@@ -1,5 +1,9 @@
 <<<<<<< HEAD
 # 🧠 KKT_DL_Package
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
+![Python](https://img.shields.io/badge/Python-3.x-blue.svg)
+![Framework](https://img.shields.io/badge/Framework-TensorFlow%20%7C%20Keras-orange.svg)
+![Status](https://img.shields.io/badge/Status-Active-success.svg)
 
 **KKT_DL_Package** is a modular Deep Learning utility library designed to simplify and accelerate model development using **Keras** and **TensorFlow**.  
 It includes flexible tools for **transfer learning**, **custom callbacks**, **balanced dataset creation**, and **visualization**.
