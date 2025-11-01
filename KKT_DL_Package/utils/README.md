@@ -28,7 +28,7 @@
 ---
 
 ## 📂 Source Directory Structure
-'''
+```
 
 <source_dir_name>/
 │
@@ -43,7 +43,7 @@
 ├── img_201.jpg
 └── ...
 
-'''
+```
 Each subfolder corresponds to a distinct class.
 
 ---
@@ -56,7 +56,7 @@ Inside this folder, the data is divided into **train**, **valid**, and **test** 
 each containing balanced class folders.
 
 Example:
-'''
+```
 
 split_<source_dir_name>/
 │
@@ -75,7 +75,7 @@ split_<source_dir_name>/
 ├── class_B/
 └── class_C/
 
-'''
+```
 If the input folder is: D:\Datasets\COVID_Xray
 then the program automatically creates: D:\Datasets\split_COVID_Xray\
 
