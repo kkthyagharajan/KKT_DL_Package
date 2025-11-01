@@ -46,6 +46,25 @@
 ```
 Each subfolder corresponds to a distinct class.
 
+```
+
+split_<source_dir_name>/
+├── train/
+│ ├── class_A/
+│ ├── class_B/
+│ └── class_C/
+│
+├── valid/
+│ ├── class_A/
+│ ├── class_B/
+│ └── class_C/
+│
+└── test/
+  ├── class_A/
+  ├── class_B/
+  └── class_C/
+
+```
 ---
 
 
@@ -80,25 +99,7 @@ Click Start Balancing
 Progress updates and a completion message are displayed in the interface.
 
 ## 📊 3. Example Results Preview
-```
 
-split_<source_dir_name>/
-├── train/
-│ ├── class_A/
-│ ├── class_B/
-│ └── class_C/
-│
-├── valid/
-│ ├── class_A/
-│ ├── class_B/
-│ └── class_C/
-│
-└── test/
-  ├── class_A/
-  ├── class_B/
-  └── class_C/
-
-```
 When executed, the module automatically creates a new folder named  
 **`split_<source_dir_name>`** in the **same directory as the input**.  
 Inside this folder, the data is divided into **train**, **valid**, and **test** subsets —  
