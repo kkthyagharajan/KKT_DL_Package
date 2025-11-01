@@ -40,8 +40,8 @@
 │ ├── img_101.jpg
 │ └── ...
 └── class_C/
-├── img_201.jpg
-└── ...
+  ├── img_201.jpg
+  └── ...
 
 ```
 Each subfolder corresponds to a distinct class.
@@ -86,7 +86,7 @@ When executed, the module automatically creates a new folder named
 Inside this folder, the data is divided into **train**, **valid**, and **test** subsets —  
 each containing balanced class folders.
 
-### 📦 Output Directory Structure (Automatically Created)
+## 📦 Output Directory Structure (Automatically Created)
 ```
 
 split_<source_dir_name>/
@@ -101,9 +101,9 @@ split_<source_dir_name>/
 │ └── class_C/
 │
 └── test/
-    ├── class_A/
-    ├── class_B/
-    └── class_C/
+  ├── class_A/
+  ├── class_B/
+  └── class_C/
 
 ```
 
