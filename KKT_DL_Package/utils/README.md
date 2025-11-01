@@ -79,14 +79,7 @@ Choose Balancing Strategy:
 Click Start Balancing
 Progress updates and a completion message are displayed in the interface.
 
-### 📊 3. Example Results Preview
-
-When executed, the module automatically creates a new folder named  
-**`split_<source_dir_name>`** in the **same directory as the input**.  
-Inside this folder, the data is divided into **train**, **valid**, and **test** subsets —  
-each containing balanced class folders.
-
-## 📦 Output Directory Structure (Automatically Created)
+## 📊 3. Example Results Preview
 ```
 
 split_<source_dir_name>/
@@ -106,7 +99,12 @@ split_<source_dir_name>/
   └── class_C/
 
 ```
+When executed, the module automatically creates a new folder named  
+**`split_<source_dir_name>`** in the **same directory as the input**.  
+Inside this folder, the data is divided into **train**, **valid**, and **test** subsets —  
+each containing balanced class folders.
 
+## 📦 Output Directory Structure (Automatically Created)
 If the input folder is: 
 D:\Datasets\COVID_Xray
 then the program automatically creates: 
