@@ -69,7 +69,6 @@ You can also launch this module directly from the command line:
 python KKT_Keras_Balanced_Dataset.py
 This opens an interactive GUI where you can select your source directory and balancing strategy visually.
 
-![KKT Keras Balanced Dataset GUI](https://github.com/kkthyagharajan/KKT_DL_Package/blob/main/images/GUI_Util_BD.png?raw=true)
 
 GUI Features:
 Select Input Directory (source dataset)
@@ -87,8 +86,7 @@ When executed, the module automatically creates a new folder named
 Inside this folder, the data is divided into **train**, **valid**, and **test** subsets —  
 each containing balanced class folders.
 
-📦 Output Directory Structure (Automatically Created)
-
+### 📦 Output Directory Structure (Automatically Created)
 ```
 
 split_<source_dir_name>/
@@ -109,8 +107,10 @@ split_<source_dir_name>/
 
 ```
 
-If the input folder is: D:\Datasets\COVID_Xray
-then the program automatically creates: D:\Datasets\split_COVID_Xray\
+If the input folder is: 
+D:\Datasets\COVID_Xray
+then the program automatically creates: 
+D:\Datasets\split_COVID_Xray\
 
 ✅ Each subset (train / valid / test) contains balanced samples per class based on your chosen strategy:
 - Oversampling (Augment to Maximum Class Size)
