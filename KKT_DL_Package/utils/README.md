@@ -48,14 +48,46 @@ Each subfolder corresponds to a distinct class.
 
 ---
 
-## 📦 Output Directory Structure (Automatically Created)
+
+## 🚀 Usage Options
+
+### 💻 1. Programmatic Usage
+```python
+from KKT_DL_Package.utils import KKT_Keras_Balanced_Dataset
+
+# Balance dataset using oversampling (with augmentation)
+KKT_Keras_Balanced_Dataset.balance_dataset(
+    input_dir="dataset/",
+    method="oversample",  # or "undersample"
+    augment=True
+)
+
+
+### 🖥️ 2. Standalone GUI Mode
+
+You can also launch this module directly from the command line:
+python KKT_Keras_Balanced_Dataset.py
+This opens an interactive GUI where you can select your source directory and balancing strategy visually.
+
+![KKT Keras Balanced Dataset GUI](../../images/GUI_Util_BD.png)
+
+GUI Features:
+Select Input Directory (source dataset)
+Choose Balancing Strategy:
+ Oversampling (Augment to Maximum Class Size)
+ Undersampling (Reduce to Minimum Class Size)
+
+Click Start Balancing
+Progress updates and a completion message are displayed in the interface.
+
+### 📊 3. Example Results Preview
 
 When executed, the module automatically creates a new folder named  
 **`split_<source_dir_name>`** in the **same directory as the input**.  
 Inside this folder, the data is divided into **train**, **valid**, and **test** subsets —  
 each containing balanced class folders.
 
-Example:
+📦 Output Directory Structure (Automatically Created)
 ```
 
 split_<source_dir_name>/
@@ -79,40 +111,12 @@ split_<source_dir_name>/
 If the input folder is: D:\Datasets\COVID_Xray
 then the program automatically creates: D:\Datasets\split_COVID_Xray\
 
-
 ✅ Each subset (train / valid / test) contains balanced samples per class based on your chosen strategy:
 - Oversampling (Augment to Maximum Class Size)
 - Undersampling (Reduce to Minimum Class Size)
 
 ---
 
-## 🚀 Usage Options
-
-### 🧠 1. Programmatic Usage
-```python
-from KKT_DL_Package.utils import KKT_Keras_Balanced_Dataset
-
-# Balance dataset using oversampling (with augmentation)
-KKT_Keras_Balanced_Dataset.balance_dataset(
-    input_dir="dataset/",
-    method="oversample",  # or "undersample"
-    augment=True
-)
-
-
-🖥️ 2. Standalone GUI Mode
-
-You can also launch this module directly from the command line:
-python KKT_Keras_Balanced_Dataset.py
-
-GUI Features:
-Select Input Directory (source dataset)
-Choose Balancing Strategy:
- Oversampling (Augment to Maximum Class Size)
- Undersampling (Reduce to Minimum Class Size)
-
-Click Start Balancing
-Progress updates and a completion message are displayed in the interface.
 
 🧠 Notes
 Supported formats: .jpg, .jpeg, .png
