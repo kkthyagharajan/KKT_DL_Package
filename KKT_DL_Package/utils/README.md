@@ -88,10 +88,10 @@ Inside this folder, the data is divided into **train**, **valid**, and **test** 
 each containing balanced class folders.
 
 📦 Output Directory Structure (Automatically Created)
+
 ```
 
 split_<source_dir_name>/
-│
 ├── train/
 │ ├── class_A/
 │ ├── class_B/
@@ -103,9 +103,9 @@ split_<source_dir_name>/
 │ └── class_C/
 │
 └── test/
-├── class_A/
-├── class_B/
-└── class_C/
+    ├── class_A/
+    ├── class_B/
+    └── class_C/
 
 ```
 If the input folder is: D:\Datasets\COVID_Xray

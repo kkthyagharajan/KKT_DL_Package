@@ -9,6 +9,7 @@ V3 Augmentation was included
 V4 Augmentation methods are displayed below the monitor window. But not working
 V5 displays the parent folder summary
 V6 augmented images are stored in the target dir with its originalname_aug_some random number
+V7 (01-Nov-2025): Balancing titles were updated. All features are working well.
 """
 
 # Tkinter GUI for creating a balanced dataset for training, validation, and testing.
@@ -228,7 +229,7 @@ def create_balanced_dataset(source_dir, test_ratio, validation_ratio, train_rati
 class DatasetSplitterApp:
     def __init__(self, master):
         self.master = master
-        master.title("Balanced Dataset Splitter")
+        master.title("🧠 KKT Dataset Balanced-Splitter")
         master.geometry("600x650")
         
         self.source_dir = tk.StringVar()
@@ -284,14 +285,14 @@ class DatasetSplitterApp:
 
         balance_frame = tk.Frame(main_frame)
         balance_frame.pack(fill=tk.X, pady=(10, 5))
-        tk.Label(balance_frame, text="Balancing Method:", font=("Helvetica", 10, "bold")).pack(anchor="w")
+        tk.Label(balance_frame, text="Select Balancing Strategy:", font=("Helvetica", 10, "bold")).pack(anchor="w")
         
         radio_frame = tk.Frame(balance_frame)
         radio_frame.pack(fill=tk.X)
-        tk.Radiobutton(radio_frame, text="Minimum Count Image Balance", variable=self.balance_method_var,
+        tk.Radiobutton(radio_frame, text="Undersampling (Reduce to Minimum Class Size)", variable=self.balance_method_var,
                        value="Minimum Count Image Balance", command=self.toggle_aug_checkboxes).pack(side=tk.LEFT, padx=(0, 10))
         
-        tk.Radiobutton(radio_frame, text="Augmented Image Balance", variable=self.balance_method_var,
+        tk.Radiobutton(radio_frame, text="Oversampling (Augment to Maximum Class Size). Select at the Bottom", variable=self.balance_method_var,
                        value="Augmented Image Balance", command=self.toggle_aug_checkboxes).pack(side=tk.LEFT)
         
         self.aug_checkbox_frame = tk.Frame(main_frame)
@@ -391,4 +392,7 @@ class DatasetSplitterApp:
 if __name__ == "__main__":
     root = tk.Tk()
     app = DatasetSplitterApp(root)
+    #Set geometry AFTER widgets are initialized
+    root.update_idletasks()
+    root.geometry("900x600")
     root.mainloop()
