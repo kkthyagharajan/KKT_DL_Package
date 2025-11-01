@@ -69,7 +69,7 @@ You can also launch this module directly from the command line:
 python KKT_Keras_Balanced_Dataset.py
 This opens an interactive GUI where you can select your source directory and balancing strategy visually.
 
-![KKT Keras Balanced Dataset GUI](../../images/GUI_Util_BD.png)
+![KKT Keras Balanced Dataset GUI](https://github.com/kkthyagharajan/KKT_DL_Package/blob/main/images/GUI_Util_BD.png?raw=true)
 
 GUI Features:
 Select Input Directory (source dataset)
@@ -108,6 +108,7 @@ split_<source_dir_name>/
     └── class_C/
 
 ```
+
 If the input folder is: D:\Datasets\COVID_Xray
 then the program automatically creates: D:\Datasets\split_COVID_Xray\
 
