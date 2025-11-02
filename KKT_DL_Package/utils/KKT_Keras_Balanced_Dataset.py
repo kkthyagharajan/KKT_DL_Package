@@ -10,6 +10,7 @@ V4 Augmentation methods are displayed below the monitor window. But not working
 V5 displays the parent folder summary
 V6 augmented images are stored in the target dir with its originalname_aug_some random number
 V7 (01-Nov-2025): Balancing titles were updated. All features are working well.
+V8 Window Title was chnaged 1st Nov 2025
 """
 
 # Tkinter GUI for creating a balanced dataset for training, validation, and testing.
@@ -70,9 +71,129 @@ def augment_and_save_image(img_path, output_dir, augmentation_methods, img_name_
 
     except Exception as e:
         print(f"Error augmenting image {img_path}: {e}")
+        
+# In[]
+#This used in programatic import call       
+def aug_split2balanced_TVT(source_dir, test_ratio=0.2, validation_ratio=0.1, train_ratio=0.7,                          
+                            should_shuffle=False, balance_method='undersample', 
+                            augmentation_methods=None):
+    """   
+    Splits dataset into train/validation/test and returns their paths + class names.
 
-def create_balanced_dataset(source_dir, test_ratio, validation_ratio, train_ratio,
-                            output_text_widget, status_bar_label, should_shuffle, balance_method, augmentation_methods):
+    Args:
+        input_dir (str): Path to the raw dataset folder (with subfolders = classes).
+        balance_method='undersample' or 'oversample'
+        augmentation_methods = ["Random Flip",
+                                "Random Rotation",
+                                "Random Brightness",
+                                "Random Contrast",
+                                "Random Zoom"
+                                ]
+    
+    """
+    try:
+        class_names = [d for d in os.listdir(source_dir) if os.path.isdir(os.path.join(source_dir, d))]       
+        all_class_images = defaultdict(list)
+        total_images_count = 0
+        for class_name in class_names:
+            class_path = os.path.join(source_dir, class_name)
+            images = [
+                os.path.join(class_path, f) for f in os.listdir(class_path)
+                if f.lower().endswith(('.png', '.jpg', '.jpeg'))
+            ]
+            all_class_images[class_name].extend(images)
+            total_images_count += len(images)
+            
+
+        source_name = os.path.basename(source_dir)
+        target_dir = os.path.join(os.path.dirname(source_dir), f"split_{source_name}")
+        
+        if os.path.exists(target_dir):
+            shutil.rmtree(target_dir)
+        
+        os.makedirs(target_dir, exist_ok=True)
+        
+        split_dirs = {
+            "train": os.path.join(target_dir, "train"),
+            "valid": os.path.join(target_dir, "valid"),
+            "test": os.path.join(target_dir, "test")
+        }
+        
+        for split_path in split_dirs.values():
+            os.makedirs(split_path, exist_ok=True)
+
+        for class_name in class_names:
+            for split_path in split_dirs.values():
+                class_path = os.path.join(split_path, class_name)
+                os.makedirs(class_path, exist_ok=True)
+        
+        
+        if balance_method == "undersample":
+            target_count = min(len(images) for images in all_class_images.values())
+        else:
+            target_count = max(len(images) for images in all_class_images.values())
+
+        summary_counts = {
+            "train": defaultdict(int),
+            "valid": defaultdict(int),
+            "test": defaultdict(int)
+        }
+        
+        for class_name, image_paths in all_class_images.items():
+            current_count = len(image_paths)
+            
+            # Augment images if necessary and add them to the list of images to be split
+            if balance_method == 'oversample' and current_count < target_count:
+                num_to_augment = target_count - current_count
+  
+                # Store augmented images in a list for later splitting
+                for _ in range(num_to_augment):
+                    img_to_augment = random.choice(image_paths)
+                    dest_path = os.path.join(split_dirs["train"], class_name)
+                    augment_and_save_image(img_to_augment, dest_path, augmentation_methods)
+
+            final_images = []
+            if balance_method == 'oversample':
+                final_images.extend(image_paths)
+                augmented_paths = [os.path.join(split_dirs["train"], class_name, f) 
+                                   for f in os.listdir(os.path.join(split_dirs["train"], class_name))
+                                   if f.startswith("aug_")]
+                final_images.extend(augmented_paths)
+            else:
+                final_images = image_paths[:target_count]
+
+            if should_shuffle:
+                random.shuffle(final_images)
+
+            total_images = len(final_images)
+            train_count = math.floor(total_images * train_ratio)
+            validation_count = math.floor(total_images * validation_ratio)
+            test_count = total_images - train_count - validation_count
+
+            train_set = final_images[:train_count]
+            validation_set = final_images[train_count:train_count + validation_count]
+            test_set = final_images[train_count + validation_count:]
+
+            for img_list, split_name in [(train_set, "train"), (validation_set, "valid"), (test_set, "test")]:
+                for img_path in img_list:
+                    # Don't copy if it's an augmented image already in the train folder
+                    if split_name == "train" and "aug_" in os.path.basename(img_path):
+                        shutil.move(img_path, os.path.join(split_dirs[split_name], class_name, os.path.basename(img_path)))
+                        summary_counts[split_name][class_name] += 1
+                    else:
+                        dest_path = os.path.join(split_dirs[split_name], class_name, os.path.basename(img_path))
+                        shutil.copy(img_path, dest_path)
+                        summary_counts[split_name][class_name] += 1
+    except Exception as e:
+        print("Error in datasplit")        
+        
+# In[]
+#This is used in stand alone GUI application
+
+def create_balanced_dataset(source_dir, test_ratio=0.2, validation_ratio=0.1, train_ratio=0.7,
+                            output_text_widget=None, status_bar_label=None, 
+                            should_shuffle=True, balance_method='undersample', 
+                            augmentation_methods=None):
     """   
     Splits dataset into train/validation/test and returns their paths + class names.
 
@@ -225,11 +346,14 @@ def create_balanced_dataset(source_dir, test_ratio, validation_ratio, train_rati
     except Exception as e:
         messagebox.showerror("Error", f"An error occurred: {e}")
         status_bar_label.config(text="Status: Error")
+        
+        
+# In[]
 
 class DatasetSplitterApp:
     def __init__(self, master):
         self.master = master
-        master.title("🧠 KKT Dataset Balanced-Splitter")
+        master.title("🧠 KKT Balanced-Data-Splitter")
         master.geometry("600x650")
         
         self.source_dir = tk.StringVar()
@@ -388,6 +512,8 @@ class DatasetSplitterApp:
             
         create_balanced_dataset(source_dir, test_ratio, val_ratio, train_ratio,
                                 self.summary_text, self.status_bar_label, should_shuffle, balance_method, augmentation_methods)
+        
+# In[]        
 
 if __name__ == "__main__":
     root = tk.Tk()
