@@ -29,7 +29,6 @@
 
 ## 📂 Source Directory Structure
 ```
-
 <source_dir_name>/
 │
 ├── class_A/
@@ -42,7 +41,6 @@
 └── class_C/
   ├── img_201.jpg
   └── ...
-
 ```
 Each subfolder corresponds to a distinct class.
 
@@ -52,14 +50,29 @@ Each subfolder corresponds to a distinct class.
 
 ### 💻 1. Programmatic Usage
 ```python
-from KKT_DL_Package.utils import KKT_Keras_Balanced_Dataset
-
-# Balance dataset using oversampling (with augmentation)
-KKT_Keras_Balanced_Dataset.balance_dataset(
-    input_dir="source_dir_name/",
-    method="oversample",  # or "undersample"
-    augment=True
+from KKT_DL_Package.utils import KKT_Keras_Balanced_Dataset as kbd
+# 🧠 Example: Class-balance and split your dataset into train, validation, and test sets
+source_dir = r"D:\33_Databases\1delete\COVID"  #ensure that the folder contains the class folders
+kbd.aug_split2balanced_TVT(
+    source_dir=source_dir,
+    test_ratio=0.2,
+    validation_ratio=0.1,
+    train_ratio=0.7,
+    should_shuffle=False,
+    balance_method='undersample',  # or 'oversample'
+    augmentation_methods=None      # or e.g. ["Random Brightness", "Random Contrast"]
 )
+```
+```
+📘 Description
+This function splits the dataset located in source_dir into train, validation, and test sets according to the specified ratios,
+and stores the results in a separate folder named split_<source_dir_name>.
+🧩 Parameters
+input_dir (str): Path to the raw dataset folder (each subfolder represents a class).
+balance_method (str): 'undersample' or 'oversample' — determines how class balancing is applied.
+augmentation_methods (list, optional):
+List of augmentations to apply when oversampling. Supported methods include:
+["Random Flip", "Random Rotation", "Random Brightness", "Random Contrast", "Random Zoom"]
 ```
 ### 🖥️ 2. Standalone Application with GUI
 
@@ -87,7 +100,6 @@ Inside this folder, the data is divided into **train**, **valid**, and **test** 
 each containing balanced class folders.
 ### 📦 Output Directory Structure (Automatically Created)
 ```
-
 split_<source_dir_name>/
 ├── train/
 │ ├── class_A/
@@ -105,7 +117,6 @@ split_<source_dir_name>/
   └── class_C/
 
 ```
-
 If the input folder is: 
 `D:\Datasets\COVID_Xray`
 then the program automatically creates: 
@@ -114,17 +125,19 @@ then the program automatically creates:
 ✅ Each subset (train / valid / test) contains balanced samples per class based on your chosen strategy:
 - Oversampling (Augment to Maximum Class Size)
 - Undersampling (Reduce to Minimum Class Size)
-
 ---
 
 
-🧠 Notes
+### 🧠 Notes
+```
 Supported formats: .jpg, .jpeg, .png
 Output folder split_<source_dir_name> is auto-generated next to the source folder.
 Existing directories with the same name will be reused or replaced (based on implementation).
 Works on Windows, Linux, and macOS.
 Fully compatible with Keras, TensorFlow, and other DL frameworks.
-
-👤 Author
-Thyagharajan K K
+```
+### 👤 Author
+```
+Thyagharajan K K , Dean (Research) , RMD Engineering College.
 📧 kkthyagharajan@yahoo.com
+```
