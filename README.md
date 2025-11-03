@@ -17,6 +17,20 @@ KKT_DL_Package is a modular Deep Learning utility library designed to simplify a
 - 🧮 **Dataset Utilities**
 - 📦 **Modular Architecture**
 
+## 🧩 Dependencies
+
+This package requires the following core libraries and the following versions are recommended for best compatibility:
+
+- **Python** ≥ 3.11  
+- **TensorFlow** == 2.18.0  
+- **OpenCV-Python** == 4.11.0.86  
+- **OpenCV-Contrib-Python** == 4.11.0.86  
+- **Pillow** == 11.1.0  
+- **PyQt5** == 5.15.10  
+- **CVLib** == 0.2.7  
+- **Albumentations** == 1.3.1  
+- **NumPy**, **Pandas**, **Matplotlib**, **Seaborn**
+
 ## 🧑‍💻 Quick Example
 
 ```python
@@ -34,24 +48,29 @@ kkt.KKT_plots.plot_training_curves(history)
 ```
 
 ## 🧾 Installation
+### 1️⃣ For **PyPI** users (public install)
+The following command will install the package along with all required dependencies in your environment.
 
 ```bash
 pip install KKT_DL_Package
 ```
-
-or from source:
-
+### 2️⃣ For developers / local editable install
+If you are a developer install from GitHub source using the following commands. 
+This also automatically installs all dependencies.
 ```bash
 git clone https://github.com/kkthyagharajan/KKT_DL_Package.git
 cd KKT_DL_Package
 pip install -e .
 ```
+This will clone the `KKT_DL_Package` repository into your **current working directory**, including all subfolders and files.
 
-## 📋 Requirements
+### 3️⃣ Manual dependency install (Optional)
+If you want to install only dependencies without installing the code
 
-- Python ≥ 3.8
-- TensorFlow ≥ 2.9
-- NumPy, Pandas, Matplotlib, Pillow
+```bash
+pip install -r requirements.txt
+```
+
 
 ## 📜 License
 
