@@ -1,5 +1,9 @@
 from setuptools import setup, find_packages
 
+# Read dependencies from requirements.txt
+with open("requirements.txt", encoding="utf-8") as f:
+    requirements = f.read().splitlines()
+
 setup(
     name="KKT_DL_Package",
     version="1.0.0",
@@ -13,19 +17,7 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/kkthyagharajan/KKT_DL_Package",
     packages=find_packages(),
-    install_requires=[
-        "tensorflow==2.18.0",
-        "opencv-python==4.11.0.0",
-        "opencv-contrib-python==4.11.0.0",
-        "pillow==11.1.0",
-        "pyqt5==5.15.10",
-        "cvlib==0.2.7",
-        "numpy",
-        "pandas",
-        "seaborn",
-        "matplotlib",
-        "albumentations==1.3.1"
-    ],
+    install_requires=requirements,  # automatically loads dependencies
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Science/Research",
@@ -43,4 +35,3 @@ setup(
     ),
     python_requires=">=3.11",
 )
-
