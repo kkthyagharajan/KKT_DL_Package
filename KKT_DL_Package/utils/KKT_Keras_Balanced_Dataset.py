@@ -185,7 +185,7 @@ def aug_split2balanced_TVT(source_dir, test_ratio=0.2, validation_ratio=0.1, tra
                         shutil.copy(img_path, dest_path)
                         summary_counts[split_name][class_name] += 1
     except Exception as e:
-        print("Error in datasplit")        
+        print(f"❌ Error in datasplit: {e}")        
         
 # In[]
 #This is used in stand alone GUI application

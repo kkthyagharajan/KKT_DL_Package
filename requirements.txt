@@ -1,0 +1,11 @@
+tensorflow==2.18.0
+opencv-python==4.11.0.0
+opencv-contrib-python==4.11.0.0
+pillow==11.1.0
+pyqt5==5.15.10
+cvlib==0.2.7
+numpy
+pandas
+seaborn
+matplotlib
+albumentations==1.3.1
