@@ -11,11 +11,12 @@ V5 displays the parent folder summary
 V6 augmented images are stored in the target dir with its originalname_aug_some random number
 V7 (01-Nov-2025): Balancing titles were updated. All features are working well.
 V8 Window Title was chnaged 1st Nov 2025
+V9 4-11-2025 Fix for PyQt5 "Could not load the Qt platform plugin error was solved
 """
 
 # Tkinter GUI for creating a balanced dataset for training, validation, and testing.
 
-import os
+import os,sys
 import shutil
 import tkinter as tk
 from tkinter import filedialog, messagebox
@@ -23,6 +24,12 @@ from collections import defaultdict
 from PIL import Image, ImageEnhance, ImageOps
 import random
 import math
+
+#Fix for PyQt5 "Could not load the Qt platform plugin 'windows'" error
+if "QT_QPA_PLATFORM_PLUGIN_PATH" not in os.environ:
+    qt_base = os.path.join(sys.prefix, "Lib", "site-packages", "PyQt5", "Qt", "plugins", "platforms")
+    if os.path.exists(qt_base):
+        os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = qt_base
 
 def augment_and_save_image(img_path, output_dir, augmentation_methods, img_name_prefix="aug"):
     """Applies selected augmentations to an image and saves the result with a prefix."""
