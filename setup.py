@@ -1,7 +1,8 @@
 from setuptools import setup, find_packages
-
+from pathlib import Path
 # Read dependencies from requirements.txt
-with open("requirements.txt", encoding="utf-8") as f:
+this_dir = Path(__file__).parent
+with open(this_dir / "requirements.txt", encoding="utf-8") as f:
     requirements = f.read().splitlines()
 
 setup(
