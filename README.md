@@ -55,14 +55,20 @@ The following command will install the package along with all required dependenc
 pip install KKT_DL_Package
 ```
 ### 2️⃣ For developers / local editable install
-If you are a developer install from GitHub source using the following commands. 
-This also automatically installs all dependencies.
+If you are a developer, create a new environment, activate it, and run the following commands:
 ```bash
 git clone https://github.com/kkthyagharajan/KKT_DL_Package.git
 cd KKT_DL_Package
 pip install -e .
 ```
-This will clone the `KKT_DL_Package` repository into your **current working directory**, including all subfolders and files.
+The first command clones the KKT_DL_Package repository into your current working directory, including all subfolders and files.
+The third command installs all dependencies into the active environment and creates editable links to the downloaded package files — enabling live editing and immediate effect without reinstalling.
+ 
+If you want to use Spyder in this environment, install it as follows:
+```
+pip install spyder --force-reinstall 
+```
+This ensures that Spyder is aligned with the currently installed PyQt version in your environment.
 
 ### 3️⃣ Manual dependency install (Optional)
 If you want to install only dependencies without installing the code
