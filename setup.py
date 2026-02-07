@@ -7,7 +7,7 @@ with open(this_dir / "requirements.txt", encoding="utf-8") as f:
 
 setup(
     name="KKT_DL_Package",
-    version="1.0.0",
+    version="1.0.1",
     author="Thyagharajan K K",
     author_email="kkthyagharajan@yahoo.com",
     description=(

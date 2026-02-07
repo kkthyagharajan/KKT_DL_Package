@@ -318,7 +318,7 @@ def get_hf_model_img_labels_local_path(repoid, img_size, force_refresh=False):
 
 # In[]
 
-def get_hf_model_img_labels_local_path(REPO_ID, img_size, cache_folder="hf2kkt_download", force_refresh=False, model_subdir=None):
+def get_hf_model_img_labels_local_path(REPO_ID, img_size, cache_folder="hf2kkt_download",  model_subdir=None,force_refresh=False):
     '''
     This function uses the above two functions multiclass_prediction_return, display_images_gui
     
@@ -332,6 +332,7 @@ def get_hf_model_img_labels_local_path(REPO_ID, img_size, cache_folder="hf2kkt_d
     REPO_ID : Hugging Face REPO_ID  where the model file, .txt class file, and a test image folder is stored 
     img_size : a tuple with two elements (300, 300). This value should match with the models input
     cache_folder: "hf2kkt_download"  default araguemnt may be omitted while calling
+    model_subdir: default argument
     force_refresh = False will not redownload the model, class, and image files if they already exist locall
                   = True  will force a redownload of all model, class, and image files even if they already exist locally.
 

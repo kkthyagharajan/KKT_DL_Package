@@ -104,7 +104,37 @@ def Multiclass_confusion_matrix_with_report(KKT_model, target_subdirs, dataset):
     report = classification_report(y_true, y_pred, target_names=target_subdirs)
     print(report)
     
+# In[]:
+#Used in logistic regression Machine Learning
+def plot_confusion_matrix(cm,class_names,title='Confusion Matrix'):
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(
+        cm, 
+        annot=True, 
+        fmt='d', 
+        cmap='Blues',
+        xticklabels=class_names, 
+        yticklabels=class_names
+    )
+    plt.title(title)
+    plt.ylabel('True Label')
+    plt.xlabel('Predicted Label')
+    plt.show()
+        
+def plot_ROC_curve(fpr, tpr, auc, title="ROC Curve"): 
+    plt.figure(figsize=(7, 6))
+    plt.plot(fpr, tpr, label=f"ROC Curve (AUC = {auc:.2f})")
+    plt.plot([0, 1], [0, 1], linestyle='--')
+    plt.xlabel("False Positive Rate")
+    plt.ylabel("True Positive Rate")
+    plt.title(title)
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+    
 
+    
 # In[]:
 def plot_learning_curves(training_acc, validation_acc, training_loss, validation_loss, no_of_legend_col, folds_endEpoch, title,zoom=1):    
   
@@ -159,65 +189,135 @@ def plot_learning_curves(training_acc, validation_acc, training_loss, validation
     plt.subplots_adjust(hspace=0.9) 
     plt.show()
 
+# In[]  used in SDG logistic regression
+
+def plot_kfold_individual_continuous_learning_curves(training_acc, validation_acc, training_loss, validation_loss, no_of_legend_col, folds_endEpoch, kfold_combined_learning_curve_imgfile, title="KKT Plot",  zoom=1):
+    
+    plt.figure(figsize=(8, 8))
+    
+    # --- Subplot 1: Accuracy ---
+    plt.subplot(2, 1, 1) 
+    plt.plot(range(1, len(training_acc)+1), training_acc, label='Training Accuracy')
+    plt.plot(range(1, len(validation_acc)+1), validation_acc, label='Validation Accuracy')
+    plt.xlabel('epoch')
+    plt.ylabel('Accuracy')
+    
+    # Logic to reset X-axis labels for each fold
+    if len(folds_endEpoch) > 0:
+        total_len = len(training_acc)
+        tick_pos = range(1, total_len + 1, 5)
+        # Calculate local epoch relative to previous fold ends
+        labels = [(i - next((f for f in reversed(folds_endEpoch) if f < i), 0)) for i in tick_pos]
+        plt.xticks(tick_pos, labels)
+
+    if zoom == 1:
+        plt.ylim([min(plt.ylim()), 1])
+    else:
+        plt.ylim([0, 1])
+        
+    if len(folds_endEpoch) > 0:
+        fold_no = 1
+        for i in folds_endEpoch: 
+            local_ep = i - next((f for f in reversed(folds_endEpoch) if f < i), 0)
+            plt.plot([i, i], plt.ylim(), label=f'End of Fold {fold_no}, epoch {local_ep}', linestyle='--')
+            fold_no += 1
+            plt.text(i, plt.ylim()[1] * 0.95, f'Epoch {local_ep}', rotation=90, verticalalignment='top', fontsize=8, color='blue')
+            
+    plt.legend(loc='upper center', bbox_to_anchor=(0.4, -0.25), ncol=no_of_legend_col, frameon=False, handlelength=1.5, columnspacing=0.5)
+    plt.title('Training and Validation Accuracy -' + title)
+    
+    # --- Subplot 2: Loss ---
+    plt.subplot(2, 1, 2) 
+    plt.plot(range(1, len(training_loss)+1), training_loss, label='Training Loss')
+    plt.plot(range(1, len(validation_loss)+1), validation_loss, label='Validation Loss')
+    plt.xlabel('epoch')
+    plt.ylabel('Loss')
+    
+    # Logic to reset X-axis labels for each fold
+    if len(folds_endEpoch) > 0:
+        total_len = len(training_loss)
+        tick_pos = range(1, total_len + 1, 5)
+        labels = [(i - next((f for f in reversed(folds_endEpoch) if f < i), 0)) for i in tick_pos]
+        plt.xticks(tick_pos, labels)
+
+    if zoom == 1:
+        plt.ylim([min(training_loss + validation_loss), max(training_loss + validation_loss)])  
+    else:
+        plt.ylim([0, max(training_loss + validation_loss)])     
+        
+    if len(folds_endEpoch) > 0:
+        fold_no = 1
+        for i in folds_endEpoch:
+            local_ep = i - next((f for f in reversed(folds_endEpoch) if f < i), 0)
+            plt.plot([i, i], plt.ylim(), label=f'End of Fold {fold_no}, epoch {local_ep}', linestyle='--')
+            fold_no += 1
+            plt.text(i, plt.ylim()[1] * 0.95, f'Epoch {local_ep}', rotation=90, verticalalignment='top', fontsize=8, color='blue')
+                  
+    plt.legend(loc='upper center', bbox_to_anchor=(0.4, -0.25), ncol=no_of_legend_col, frameon=False, handlelength=1.5, columnspacing=0.5)
+    plt.title('Training and Validation Loss - ' + title)
+    
+    plt.subplots_adjust(hspace=0.9) 
+    plt.savefig(kfold_combined_learning_curve_imgfile, bbox_inches='tight', dpi=300)
+    plt.show()
 # In[]:
 #GANTT CHART  Gantt Chart
     
-
-# Define tasks and their durations (start month, end month)
-tasks = [
-    ("Planning & Research", 1, 3),  # No change
-    ("Basic Hardware Setup & Testing", 4, 6),  # No change
-    ("Integrating IR & PIR Sensors", 7, 9),  # No change
-    ("Testing IR & PIR Sensors", 10, 12),  # No change
-    ("LoRaWAN Integration", 13, 15),  # No change
-    ("Communication Setup", 16, 18),  # No change
-    ("Adding Renewable Energy Sources", 19, 21),  # No change
-    ("Repellent Mechanism Implementation", 22, 24),  # No change
-    ("Field Deployment & Initial Testing", 25, 27),  # No change
-    ("System Refinement & Performance Enhancement", 28, 30),  # No change
-    ("Large-Scale Deployment & User Training", 31, 33),  # No change
-    ("Impact Assessment & Documentation", 34, 36)  # No change
-]
-
-# Create figure and axis
-fig, ax = plt.subplots(figsize=(10, 6))
-
-# Define colors for different phases
-colors = plt.cm.viridis(np.linspace(0, 1, len(tasks)))
-
-
+def GANTT_Chart():
+    # Define tasks and their durations (start month, end month)
+    tasks = [
+        ("Planning & Research", 1, 3),  # No change
+        ("Basic Hardware Setup & Testing", 4, 6),  # No change
+        ("Integrating IR & PIR Sensors", 7, 9),  # No change
+        ("Testing IR & PIR Sensors", 10, 12),  # No change
+        ("LoRaWAN Integration", 13, 15),  # No change
+        ("Communication Setup", 16, 18),  # No change
+        ("Adding Renewable Energy Sources", 19, 21),  # No change
+        ("Repellent Mechanism Implementation", 22, 24),  # No change
+        ("Field Deployment & Initial Testing", 25, 27),  # No change
+        ("System Refinement & Performance Enhancement", 28, 30),  # No change
+        ("Large-Scale Deployment & User Training", 31, 33),  # No change
+        ("Impact Assessment & Documentation", 34, 36)  # No change
+    ]
     
-# Plot Gantt bars (no changes in logic, but important to use 'align='edge')
-for i, (task, start, end) in enumerate(tasks):
-    ax.barh(i, end - start + 1, left=start -1 , height=0.8, color=colors[i], edgecolor="black", align='edge')  # Subtract 1 from 'left'
-
-
-# Set y-axis labels to task names (in original order)
-ax.set_yticks(np.arange(len(tasks)))
-ax.set_yticklabels([task[0] for task in tasks])
-
-# Set x-axis ticks and labels (CUSTOM VALUES)
-x_ticks = [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]  # Your custom values
-ax.set_xticks(x_ticks)
-ax.set_xticklabels(x_ticks)
-
-# Draw vertical milestone lines (CUSTOM VALUES and red color)
-for month in x_ticks:  # Use the same custom values for vertical lines
-    ax.axvline(month, color="red", linestyle="--", alpha=0.7)
-
-
-
-# Labels and title
-ax.set_xlabel("Months")
-ax.set_ylabel("Project Phases")
-plt.figtext(0.5, 0.01, "Gantt Chart for Project Timeline", ha="center", fontsize=12, fontweight="bold")  # Added at the bottom
-
-
-# Grid
-ax.grid(axis="x", linestyle="--", alpha=0.5)
-
-# Show the plot
-plt.show()   
+    # Create figure and axis
+    fig, ax = plt.subplots(figsize=(10, 6))
+    
+    # Define colors for different phases
+    colors = plt.cm.viridis(np.linspace(0, 1, len(tasks)))
+    
+    
+        
+    # Plot Gantt bars (no changes in logic, but important to use 'align='edge')
+    for i, (task, start, end) in enumerate(tasks):
+        ax.barh(i, end - start + 1, left=start -1 , height=0.8, color=colors[i], edgecolor="black", align='edge')  # Subtract 1 from 'left'
+    
+    
+    # Set y-axis labels to task names (in original order)
+    ax.set_yticks(np.arange(len(tasks)))
+    ax.set_yticklabels([task[0] for task in tasks])
+    
+    # Set x-axis ticks and labels (CUSTOM VALUES)
+    x_ticks = [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]  # Your custom values
+    ax.set_xticks(x_ticks)
+    ax.set_xticklabels(x_ticks)
+    
+    # Draw vertical milestone lines (CUSTOM VALUES and red color)
+    for month in x_ticks:  # Use the same custom values for vertical lines
+        ax.axvline(month, color="red", linestyle="--", alpha=0.7)
+    
+    
+    
+    # Labels and title
+    ax.set_xlabel("Months")
+    ax.set_ylabel("Project Phases")
+    plt.figtext(0.5, 0.01, "Gantt Chart for Project Timeline", ha="center", fontsize=12, fontweight="bold")  # Added at the bottom
+    
+    
+    # Grid
+    ax.grid(axis="x", linestyle="--", alpha=0.5)
+    
+    # Show the plot
+    plt.show()   
     
 # In[]:
     
