@@ -27,9 +27,14 @@ This package requires the following core libraries and the following versions ar
 - **OpenCV-Contrib-Python** == 4.11.0.86  
 - **Pillow** == 11.1.0  
 - **PyQt5** == 5.15.10  
-- **CVLib** == 0.2.7  
-- **Albumentations** == 1.3.1  
+- **CVLib** == 0.2.7 
+- **Albumentations** == 1.3.1
 - **NumPy**, **Pandas**, **Matplotlib**, **Seaborn**
+- **streamlit** == 1.40.0
+- **gradio** == 1.3.1
+- **huggingface_hub** == 1.3.1
+- **Flask**, **scikit-learn**, **scipy**
+- **shap** ≥ 0.44.0
 
 ## 🧑‍💻 Quick Example
 
